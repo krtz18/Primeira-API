@@ -1,0 +1,85 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form id="form" method="post">>
+
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="telefone" placeholder="Telefone">
+        <input type="text" id="email" placeholder="Email">
+        <input type="text" id="endereco" placeholder="Endereço">
+        <input type="submit" value="Feito!">
+
+    </form>
+    
+    <div>
+
+    <h3>The Following data is successfuly posted</h3>
+
+    <h4 id="nome"></h4>
+    <h5 id="telefone"></h5>
+    <h6 id="email"></h6>
+    <h7 id="endereco"></h7>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+   
+    var form=document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+            e.preventDefault()
+
+            var nome=document.getElementById('nome').value
+            var telefone=document.getElementById('telefone').value
+            var email=document.getElementById('email').value
+            var endereco=document.getElementById('endereco').value
+            debugger
+            fetch('https://localhost:7037/api/controller/Insert', {
+                method: 'POST',
+                body: JSON.stringify({
+                    nome: nome,
+                    telefone:telefone,
+                    email: email,
+                    endereco: endereco,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+            .then(function(response){ 
+                return response.json()})
+            .then(function(data)
+            {console.log(data)
+                    nome=document.getElementById("nome")
+                    telefone=document.getElementById("telefone")
+                    email=document.getElementById("email")
+                    endereco=document.getElementById("endereco")
+
+                    nome.innerHTML = data.nome
+                    telefone.innerHTML = data.telefone
+                email.innerHTML = data.email
+                endereco.innerHTML = data.endereco   
+            }).catch(error => console.error('Error:', error)); 
+
+            window.location.href = "http://127.0.0.1:5500/index.html";
+            //location.reload();
+
+        }     
+
+    );
+</script>
+
+
+
+
+

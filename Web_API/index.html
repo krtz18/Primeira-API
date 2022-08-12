@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <h1>teste</h1>
+
+    <form id="form" method="post">>
+
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="telefone" placeholder="Telefone">
+        <input type="text" id="email" placeholder="Email">
+        <input type="text" id="endereco" placeholder="Endereço">
+        <input type="submit" value="Feito!">
+
+    </form>
+
+    <br><br><br>
+
+    <div>
+        <table class="table table-bordered">
+
+            <tr>
+                <td>nome</td>
+                <td>telefone</td>
+                <td>email</td>
+                <td>endereço</td>
+            </tr>
+
+        <tbody id="data">
+        </tbody>
+    
+    </table>
+    </div>
+</body>
+</html>   
+
+<script>
+
+  getData();
+
+    // ---------- FUNÇÃO GET/READ/LIST ----------
+    async function getData(){
+       const response = await fetch('https://localhost:7037/api/controller/Cadastro')
+       const data = await response.json();
+       console.log(data);
+       length = data.length;
+       var temp = "";
+       for(i=0;i<length;i++)
+       {
+          temp+="<tr>";
+          temp+="<td>"+data[i].nome+"</td>";
+          temp+="<td>"+data[i].telefone+"</td>";
+          temp+="<td>"+data[i].email+"</td>";
+          temp+="<td>"+data[i].endereco+"</td>";
+          temp+="<td><button class=”btn” onclick=funcEdit("+data[i].id+")>Editar</button></td>";
+          temp+="<td><button class=”btn” onclick=funcExcluir("+data[i].id+")>Deletar</button></td>";
+          
+       }
+
+    document.getElementById("data").innerHTML=temp;
+    }
+
+    // ---------- FUNÇÃO POST ----------
+    var form=document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+            e.preventDefault()
+
+            var nome=document.getElementById('nome').value
+            var telefone=document.getElementById('telefone').value
+            var email=document.getElementById('email').value
+            var endereco=document.getElementById('endereco').value
+            debugger
+            fetch('https://localhost:7037/api/controller/Insert', {
+                method: 'POST',
+                body: JSON.stringify({
+                    nome: nome,
+                    telefone:telefone,
+                    email: email,
+                    endereco: endereco,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+            .then(function(response){ 
+                return response.json()})
+            .then(function(data)
+            {console.log(data)
+                    nome=document.getElementById("nome")
+                    telefone=document.getElementById("telefone")
+                    email=document.getElementById("email")
+                    endereco=document.getElementById("endereco")
+
+                    nome.innerHTML = data.nome
+                    telefone.innerHTML = data.telefone
+                email.innerHTML = data.email
+                endereco.innerHTML = data.endereco   
+            }).catch(error => console.error('Error:', error)); 
+
+            window.location.href = "http://127.0.0.1:5500/index.html";
+        
+
+        }     
+
+    );
+    
+    // ---------- FUNÇÃO DELETE ----------
+    function funcExcluir(id){
+
+        debugger
+            
+            
+            fetch('https://localhost:7037/api/controller/Delete', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: id
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+            .then(function(response){ 
+                return response.json()}) 
+
+        window.location.href = "http://127.0.0.1:5500/index.html";
+
+    }     
+
+    function funcEdit(id){
+
+        window.location.href = "http://127.0.0.1:5500/edit.html?id=" + id;
+    }
+
+</script>

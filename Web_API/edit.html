@@ -1,0 +1,89 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <h1>Atualização</h1>
+
+    <form id="form" method="edit">
+
+        <!-- <input type="text" disabled id="id" placeholder="Id"> aparece o id na tela-->
+
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="telefone" placeholder="Telefone">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="endereco" placeholder="Endereço">
+        <input type="submit" value="Feito!">
+
+    </form>
+
+</body>
+</html>
+
+<script>
+
+    // ---------- FUNÇÃO GET/EDIT ----------
+    getData();
+    
+    async function getData(){
+
+        var url_ = new URL(location.href);
+        var id = url_.searchParams.get("id");
+
+        const response = await fetch('https://localhost:7037/api/controller/get/' + id)
+        const data = await response.json();
+        console.log(data);
+        length = data.length;
+        
+        //id.value = data.id; aparece o id na tela
+
+        nome.value = data.nome;
+        telefone.value = data.telefone;
+        email.value = data.email;
+        endereco.value = data.endereco;          
+    }
+
+
+    // ---------- FUNÇÃO UPDATE ----------
+    var form=document.getElementById('form')
+
+    form.addEventListener('submit', function(e){
+            e.preventDefault()
+            
+            //var id=document.getElementById('id').value    aparece o id na tela
+
+            var url_ = new URL(location.href);    // tira o id da tela  
+            var id = url_.searchParams.get("id"); // tira o id da tela
+            var nome=document.getElementById('nome').value
+            var telefone=document.getElementById('telefone').value
+            var email=document.getElementById('email').value
+            var endereco=document.getElementById('endereco').value
+            debugger
+            fetch('https://localhost:7037/api/controller/Update', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id: id,
+                    nome: nome,
+                    telefone:telefone,
+                    email: email,
+                    endereco: endereco,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+
+            .catch(error => console.error('Error:', error)); 
+
+            window.location.href = "http://127.0.0.1:5500/index.html";
+
+        }     
+
+);
+
+</script>
