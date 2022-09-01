@@ -1,0 +1,17 @@
+*{
+    margin: 50px;
+}
+
+.mb{
+    margin: 20px;
+    width: 350px;
+}
+
+.form-label{
+    margin: 0px;
+    font-weight: bold;
+}
+
+.table{
+    content: 50px;
+}

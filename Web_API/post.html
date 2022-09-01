@@ -3,30 +3,47 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form id="form" method="post">>
 
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="text" id="telefone" placeholder="Telefone">
-        <input type="text" id="email" placeholder="Email">
-        <input type="text" id="endereco" placeholder="Endereço">
-        <input type="submit" value="Feito!">
+    <div class="titulos">
+    <h1 class="titulo-principal">Seja bem vindo ao cadastro!</h1>
+    <h2>Insira as informações abaixo:</h2>
+    </div>
+
+    <form id="form" method="post">
+
+        <div class="mb">
+            <label class="form-label" font style="vertical-align: inherit;">Nome:</label>
+            <input type="text" class="form-control" id="nome" placeholder="Nome">
+        </div>
+
+        <div class="mb">
+            <label class="form-label" font style="vertical-align: inherit;">Telefone:</label>
+            <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+        </div>
+        <div class="mb">
+            <label class="form-label" font style="vertical-align: inherit;">Email:</label>
+            <input type="text" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="mb">
+            <label class="form-label" font style="vertical-align: inherit;">Endereço:</label>
+            <input type="text" class="form-control" id="endereco" placeholder="Endereço">
+        </div>
+
+        <br>
+        <br>
+
+        <input type="submit" class="btn btn-dark" value="Feito!">
 
     </form>
     
+    <br>
+
     <div>
-
-    <h3>The Following data is successfuly posted</h3>
-
-    <h4 id="nome"></h4>
-    <h5 id="telefone"></h5>
-    <h6 id="email"></h6>
-    <h7 id="endereco"></h7>
-
-    </div>
 
 </body>
 </html>
